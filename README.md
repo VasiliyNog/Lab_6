@@ -1,8 +1,8 @@
 # Lab_6
 public class InConvertInText {
- public static void readAllByByte( Reader in) throws IOException {
- while (true) {
- int oneByte = in.read(); // читает 1 байт
+public static void readAllByByte( Reader in) throws IOException {
+while (true) {
+int oneByte = in.read(); // читает 1 байт
  if (oneByte != -1) { // признак конца файла
  System.out.print((char) oneByte);
  } else {
