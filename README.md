@@ -1,34 +1,43 @@
 # Lab_6
-public class InConvertInText {
- public static void readAllByByte( Reader in) throws IOException {
-  while (true) {
-  int oneByte = in.read(); // читает 1 байт
-  if (oneByte != -1) { // признак конца файла
-  System.out.print((char) oneByte);
-  } else {
-   System.out.print("\n" + " конец ");
-   break;
-  }
- }
-} 
-public static void main(String[] args) {
- try {
-  br = new BufferedReader( new FileReader("E:\\MyFile1.txt" ), 1024);
-  out = new BufferedWriter( new FileWriter( "E:\\MyFile2.txt" ));
-  int lineCount = 0; 
-  String s;
-  while ((s = br.readLine()) != null) {
-  lineCount++;
-  System.out.println(lineCount + ": " + s);
-  out.write(s);
-  out.newLine(); 
-  InputStream inArray = new ByteArrayInputStream( new byte[] {5, 8, 3, 9, 11});
-  Reader rArray=new InputStreamReader(inArray,"cp1251" );
-  readAllByByte(rArray);
-  System.out.print("\n\n\n");
-  inArray.close();
-  rArray.close();
- } catch (IOException e) {
- System.out.println("Ошибка: "+ e);
- }
+import java.io.*;
+//Переписать в результирующий файл слова с четным числом букв.
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+        try {
+            br = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream("C:\\Users\\Student\\Desktop\\НВВ\\АиП\\файлы\\MyFile1.txt"), "cp1251"));
+            bw = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream("C:\\Users\\Student\\Desktop\\НВВ\\АиП\\файлы\\MyFile2.txt"), "cp1251"));
+
+            int lineCount = 0;
+            String s;
+            String [] words;
+            while ((s = br.readLine()) != null) {
+                lineCount++;
+                System.out.print(lineCount + ": " );
+                words = s.split(" ");
+                for (int i = 0; i < words.length; i++) {
+                    if(words[i].length()%2==0){
+                        bw.write(words[i]);
+                        System.out.print(words[i] + " ");
+                    }
+                }
+                System.out.println();
+               // bw.write(lineCount + ": " + s);
+                bw.newLine();
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Ошибка !!!!!!!!");
+        }
+        finally {
+            br.close();
+            bw.flush();
+            bw.close();
+        }
+    }
 }
